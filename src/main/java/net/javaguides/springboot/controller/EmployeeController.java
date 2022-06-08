@@ -105,7 +105,7 @@ public class EmployeeController {
 			String username1 = ((UserDetails) principal).getUsername();
 			LocalDateTime lt1 = LocalDateTime.now();
 			try {
-				employeeRepository.update(employee.getFirstName(),employee.getLastName(),employee.getAmount(),employee.getCurrency(),employee.getCode(),lt1, username1, id);
+				employeeRepository.update1(employee.getFirstName(),employee.getLastName(),employee.getAmount(),employee.getCurrency(),employee.getCode(),lt1, username1, id);
 			}
 			catch (Exception e){
 				e.printStackTrace();
