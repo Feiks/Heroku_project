@@ -72,7 +72,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long>{
     @Modifying
     @Query
             (value = "update employees set who_changed = ? , change_date = ? where id = ?", nativeQuery = true)
-    void update(String username, LocalDateTime lt1,long id);
+    void update(String firstName, String lastName, int amount, String currency, String username, LocalDateTime lt1, String username1, long id);
 
     @Transactional
     @Modifying

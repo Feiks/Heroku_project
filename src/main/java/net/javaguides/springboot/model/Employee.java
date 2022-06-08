@@ -23,7 +23,7 @@ public class Employee {
 	private String lastName;
 
 	@Column(name = "amount")
-	private String amount;
+	private int amount;
 
 	@Column(name = "currency")
 	private String currency;
@@ -102,11 +102,11 @@ public class Employee {
 		this.lastName = lastName;
 	}
 
-	public String getAmount() {
+	public int getAmount() {
 		return amount;
 	}
 
-	public void setAmount(String amount) {
+	public void setAmount(int amount) {
 		this.amount = amount;
 	}
 
@@ -134,7 +134,7 @@ public class Employee {
 		this.state = state;
 	}
 
-	public Employee(long id, String firstName, String lastName, String amount, String currency, String code, String state, LocalDateTime date, String user, String userChangeBy, LocalDateTime changedate) {
+	public Employee(long id, String firstName, String lastName, int amount, String currency, String code, String state, LocalDateTime date, String user, String userChangeBy, LocalDateTime changedate) {
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -148,7 +148,7 @@ public class Employee {
 		this.changedate = changedate;
 	}
 
-	public Employee(long id, String firstName, String lastName, String amount, String currency, String code, String state) {
+	public Employee(long id, String firstName, String lastName, int amount, String currency, String code, String state) {
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
