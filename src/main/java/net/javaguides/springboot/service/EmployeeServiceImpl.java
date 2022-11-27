@@ -61,4 +61,14 @@ public class EmployeeServiceImpl implements EmployeeService {
 			return employeeRepository.search(keyword);
 		}
 		return employeeRepository.findAll();	}
+
+	@Override
+	public List<Employee> getByUserName(String username) {
+		return employeeRepository.findAllByFirstNameContainingIgnoreCase(username);
+	}
+
+	@Override
+	public List<Employee> getByEmployee(String username) {
+		return employeeRepository.findAllByUserContainingIgnoreCase(username);
+	}
 }

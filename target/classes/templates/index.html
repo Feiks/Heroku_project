@@ -13,7 +13,7 @@
 <body>
 
 	<div class="container my-2">
-	<h1>Admin Panel</h1>
+	<h1>Main Panel</h1>
 	
 	<a th:href = "@{/showNewEmployeeForm}" class="btn btn-primary btn-sm mb-3"> Make a Payment </a>
 		<a th:href = "@{/adminPanel}" class="btn btn-danger btn-sm mb-3"> Admin Panel </a>
@@ -117,6 +117,66 @@
 			</tbody>
 		</table>
 
+		<h1>Your Transactions</h1>
+
+		<table border="1" class = "table table-striped table-responsive-md">
+			<thead>
+			<tr>
+				<th>
+					<a th:href="@{'/page/' + ${currentPage} + '?sortField=firstName&sortDir=' + ${reverseSortDir}}">
+						First Name</a>
+				</th>
+				<th>
+					<a th:href="@{'/page/' + ${currentPage} + '?sortField=lastName&sortDir=' + ${reverseSortDir}}">
+						Last Name</a>
+				</th>
+				<th>
+					<a th:href="@{'/page/' + ${currentPage} + '?sortField=amount&sortDir=' + ${reverseSortDir}}">
+						Amount</a>
+				</th>
+				<th>
+					<a th:href="@{'/page/' + ${currentPage} + '?sortField=currency&sortDir=' + ${reverseSortDir}}">
+						Currency</a>
+				</th>
+				<th>
+					<a th:href="@{'/page/' + ${currentPage} + '?sortField=code&sortDir=' + ${reverseSortDir}}">
+						Code</a>
+				</th>
+				<th>
+					<a th:href="@{'/page/' + ${currentPage} + '?sortField=state&sortDir=' + ${reverseSortDir}}">
+						State</a>
+				</th>
+				<th>
+					<a th:href="@{'/page/' + ${currentPage} + '?sortField=date&sortDir=' + ${reverseSortDir}}">
+						CreationDate</a>
+				</th>
+
+				<th>
+					<a th:href="@{'/page/' + ${currentPage} + '?sortField=userChangeBy&sortDir=' + ${reverseSortDir}}">
+						Updated By</a>
+				</th>
+				<th> Actions </th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr th:each="employeeList : ${yourListEmployees}">
+				<td th:text="${employeeList.firstName}"></td>
+				<td th:text="${employeeList.lastName}"></td>
+				<td th:text="${employeeList.amount}"></td>
+				<td th:text="${employeeList.currency}"></td>
+				<td th:text="${employeeList.code}"></td>
+				<td th:text="${employeeList.state}"></td>
+				<td th:text="${employeeList.date}"></td>
+				<td th:text="${employeeList.userChangeBy}"></td>
+
+
+
+				<td> <a th:href="@{/showFormForUpdate/{id}(id=${employeeList.id})}" class="btn btn-primary">Update</a>
+					<a th:href="@{/deleteEmployee/{id}(id=${employeeList.id})}" class="btn btn-danger">Delete</a>
+				</td>
+			</tr>
+			</tbody>
+		</table>
 		<div th:if = "${totalPages > 1}">
 			<div class = "row col-sm-10">
 				<div class = "col-sm-2">

@@ -79,4 +79,10 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long>{
     @Query
             (value = "update employees set first_name = ? ,last_name=?,amount = ?, currency=?, code=? , change_date = ?, who_changed = ? where id = ?", nativeQuery = true)
     void update1(String firstName, String lastName, int amount, String currency, String code, LocalDateTime lt1 ,String user_change, long id);
+
+    @Query
+    List<Employee> findAllByFirstNameContainingIgnoreCase(String username);
+
+    @Query
+    List<Employee> findAllByUserContainingIgnoreCase(String username);
 }

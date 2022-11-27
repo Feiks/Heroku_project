@@ -14,4 +14,7 @@ public interface EmployeeService {
 	Page<Employee> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection);
 	public List<Employee> listAll(String keyword) ;
 
-	}
+	List<Employee> getByUserName(String username);
+
+	List<Employee> getByEmployee(String username);
+}

@@ -86,6 +86,7 @@ public class EmployeeController {
 			employee.setCode(employee.getCode().trim());
 			LocalDateTime lt = LocalDateTime.now();
 			employee.setDate(lt);
+			employee.setFirstName(employee.getFirstName().toLowerCase());
 			employeeService.saveEmployee(employee);
 		}
 		catch(Exception e){
@@ -146,28 +147,34 @@ public class EmployeeController {
 			Model model) {
 
 		int pageSize = 10;
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-		Page<Employee> page = employeeService.findPaginated(pageNo, pageSize, sortField, sortDir);
-		List<Employee> listEmployees = page.getContent();
-		
-		model.addAttribute("currentPage", pageNo);
-		model.addAttribute("totalPages", page.getTotalPages());
-		model.addAttribute("totalItems", page.getTotalElements());
-		model.addAttribute("fdds",page.getSize());
-		model.addAttribute("totalAmount",employeeRepository.findAmountUSD());
-		model.addAttribute("totalAmount1",employeeRepository.findAmountKGS());
-		model.addAttribute("totalAmount2",employeeRepository.findAmountEURO());
+		if (principal instanceof UserDetails) {
+			String username = ((UserDetails) principal).getUsername();
+			Page<Employee> page = employeeService.findPaginated(pageNo, pageSize, sortField, sortDir);
+			List<Employee> listEmployees = employeeService.getByUserName(username);
+			List<Employee> yourListEmployees = employeeService.getByEmployee(username);
+			model.addAttribute("currentPage", pageNo);
+			model.addAttribute("totalPages", page.getTotalPages());
+			model.addAttribute("totalItems", page.getTotalElements());
+			model.addAttribute("fdds", page.getSize());
+			model.addAttribute("totalAmount", employeeRepository.findAmountUSD());
+			model.addAttribute("totalAmount1", employeeRepository.findAmountKGS());
+			model.addAttribute("totalAmount2", employeeRepository.findAmountEURO());
+			model.addAttribute("yourListEmployees", yourListEmployees);
 
 
-		model.addAttribute("findAmountofInprocess",employeeRepository.findAmountofInprocess());
+			model.addAttribute("findAmountofInprocess", employeeRepository.findAmountofInprocess());
 
 
-		model.addAttribute("sortField", sortField);
-		model.addAttribute("sortDir", sortDir);
-		model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
-		
-		model.addAttribute("listEmployees", listEmployees);
-		return "index";
+			model.addAttribute("sortField", sortField);
+			model.addAttribute("sortDir", sortDir);
+			model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+
+			model.addAttribute("listEmployees", listEmployees);
+			return "index";
+		}
+		return null;
 	}
 	@GetMapping("/takeMoney")
 	public String takeMoney(Model model){
