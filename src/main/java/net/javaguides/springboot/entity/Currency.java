@@ -1,4 +1,4 @@
-package net.javaguides.springboot.model;
+package net.javaguides.springboot.entity;
 
 public enum Currency {
     USD,

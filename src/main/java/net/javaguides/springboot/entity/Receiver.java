@@ -1,15 +1,16 @@
-package net.javaguides.springboot.model;
-
-import org.springframework.stereotype.Component;
+package net.javaguides.springboot.entity;
 
 import javax.persistence.*;
+
+@Entity
+@Table(name = "receiver")
 public class Receiver {
 
-
+    @Id
+    @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String surname;
-    private String code;
 
     public Receiver() {
     }
@@ -38,13 +39,6 @@ public class Receiver {
         this.surname = surname;
     }
 
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
 }
 
 

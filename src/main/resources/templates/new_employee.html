@@ -23,30 +23,35 @@
 				<input type="text" th:field="*{lastName}"
 				placeholder="Employee Last Name" class="form-control mb-4 col-4">
 
-			<input type="text" th:field="*{amount}"
+
+			<input type="text" th:field="*{paymentTransfer.amount}"
 				   placeholder="Amount" class="form-control mb-4 col-4">
 
-
-			<select  class="form-control mb-4 col-4"  th:field="*{currency}">
-				<option th:each="state : ${T(net.javaguides.springboot.model.Currency).values()}"
-						th:value="${state}"  th:text="${state}">
+			<select>
+				<option th:each="state : ${T(net.javaguides.springboot.entity.Currency).values()}"
+						th:value="${state}"
+						th:text="${state}">
 				</option>
 			</select>
 
+			<input type="text" th:field="*{receiver.name}"
+				   placeholder="Receiver Name" class="form-control mb-4 col-4">
+
+			<input type="text" th:field="*{receiver.surname}"
+							   placeholder="Receievr Surname" class="form-control mb-4 col-4">
 
 
-			<input value="${hello}" type="text" th:field="*{code}" th:text="${hello}"
-				   placeholder="Enter your code" class="form-control mb-4 col-4">
-
-
+			<input type="text" th:text="${codeOutput}"
+				   placeholder="Verification code" class="form-control mb-4 col-4">
 				<button type="submit" class="btn btn-info col-2"> Save Employee</button>
-
-			<p  ><span th:text="${Yeha}"></span></p>
 		</form>
 		
 		<hr>
 		
 		<a th:href = "@{/}"> Back to Employee List</a>
 	</div>
+<script th:inline="javascript">
+	const employee = [[${employee}]]
+</script>
 </body>
 </html>

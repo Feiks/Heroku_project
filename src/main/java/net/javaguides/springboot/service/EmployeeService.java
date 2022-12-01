@@ -1,20 +1,23 @@
 package net.javaguides.springboot.service;
 
 import java.util.List;
+import java.util.Optional;
 
-import org.springframework.data.domain.Page;
-
-import net.javaguides.springboot.model.Employee;
+import net.javaguides.springboot.entity.Employee;
 
 public interface EmployeeService {
-	List<Employee> getAllEmployees();
+
 	void saveEmployee(Employee employee);
-	Employee getEmployeeById(long id);
-	void deleteEmployeeById(long id);
-	Page<Employee> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection);
-	public List<Employee> listAll(String keyword) ;
 
-	List<Employee> getByUserName(String username);
+	List<Employee> getAll();
 
-	List<Employee> getByEmployee(String username);
+	Optional<Employee> getEmployeeById(long id);
+
+    void deleteById(long id);
+
+	String getUniqueCode();
+
+	List<Employee> getAllByUser();
+
+	List<Employee> getAllTransactionsToMe();
 }
