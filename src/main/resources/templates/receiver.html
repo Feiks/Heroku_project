@@ -12,33 +12,30 @@
 <div class="container">
     <h1>Payment Management System</h1>
     <hr>
-    <h2>Withdraw Money</h2>
-
+    <h2>Get Payment</h2>
     <form action="#" th:action="@{/getPayment}" th:object="${employee}"
           method="POST">
-
         <input required type="text" th:field="*{firstName}"
                placeholder="Employee First Name" class="form-control mb-4 col-4">
 
-        <input type="text" th:field="*{lastName}"
-               placeholder="Employee Last Name" class="form-control mb-4 col-4">
+        <input type="text"
+               placeholder="Receievr Surname" class="form-control mb-4 col-4">
 
 
-        <input value="${hello}" type="text" th:field="*{paymentTransfer.code}"
-               placeholder="Enter your code" class="form-control mb-4 col-4">
+        <input type="text"
+               placeholder="Verification Code" class="form-control mb-4 col-4">-->
 
 
-        <button type="submit" class="btn btn-info col-2"> Take Money</button>
-
-
-<!--        <p th: class="btn btn-info col-2" th:text="${correct}" ></p>-->
-<!--        <p class="btn btn-info col-2" th:text="${incorrect}"></p>-->
-
+        <button type="submit" class="btn btn-info col-2"> Get Payment</button>
     </form>
+
 
     <hr>
 
     <a th:href = "@{/}"> Back to Employee List</a>
 </div>
+<script th:inline="javascript">
+    const employee = [[${employee}]]
+</script>
 </body>
 </html>

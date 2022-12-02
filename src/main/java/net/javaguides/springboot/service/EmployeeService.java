@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import net.javaguides.springboot.entity.Employee;
+import net.javaguides.springboot.model.EmployeeDto;
 
 public interface EmployeeService {
 
@@ -17,7 +18,7 @@ public interface EmployeeService {
 
 	String getUniqueCode();
 
-	List<Employee> getAllByUser();
+	List<EmployeeDto> getAllByUser();
 
 	List<Employee> getAllTransactionsToMe();
 

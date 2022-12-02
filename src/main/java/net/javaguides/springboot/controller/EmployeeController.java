@@ -32,12 +32,7 @@ public class EmployeeController {
 		return "new_employee";
 	}
 
-	@PostMapping("/saveEmployee")
-	public String saveEmployee(@ModelAttribute("employee") Employee employee) {
-		// save employee to database
-		employeeService.saveEmployee(employee);
-		return "redirect:/";
-	}
+
 
 	@GetMapping("/")
 	public String getAllEmployee(Model model) {
@@ -71,15 +66,28 @@ public class EmployeeController {
 
 
 	@GetMapping("/goToPaymentPage")
-	public String goToPaymentPage(){
+	public String goToPaymentPage(Model model){
+		Employee employee = new Employee();
+		model.addAttribute("employee", employee);
+		model.addAttribute("codeOutput", employeeService.getUniqueCode());
 		return "receiver";
 	}
 
-	@PostMapping("/getPayment")
-	public String  getPayment(@ModelAttribute("employee") Employee employee){
+	@GetMapping("/getPayment")
+	public String  getPayment(Model model){
+		Employee employee = new Employee();
+		model.addAttribute("employee", employee);
+		model.addAttribute("codeOutput", employeeService.getUniqueCode());
 
 //		employeeService.getPayment(employee);
 		return "redirect:/";
 
+	}
+
+	@PostMapping("/saveEmployee")
+	public String saveEmployee(@ModelAttribute("employee") Employee employee) {
+		// save employee to database
+		employeeService.saveEmployee(employee);
+		return "redirect:/";
 	}
 }
