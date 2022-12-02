@@ -14,17 +14,17 @@
     <hr>
     <h2>Withdraw Money</h2>
 
-    <form action="#" th:action="@{/takeMoney}" th:object="${receiver}"
+    <form action="#" th:action="@{/getPayment}" th:object="${employee}"
           method="POST">
 
-        <input required type="text" th:field="*{name}"
+        <input required type="text" th:field="*{employeefirstName}"
                placeholder="Employee First Name" class="form-control mb-4 col-4">
 
-        <input type="text" th:field="*{surname}"
+        <input type="text" th:field="*{lastName}"
                placeholder="Employee Last Name" class="form-control mb-4 col-4">
 
 
-        <input value="${hello}" type="text" th:field="*{code}" th:text="${hello}"
+        <input value="${hello}" type="text" th:field="*{paymentTransfer.code}"
                placeholder="Enter your code" class="form-control mb-4 col-4">
 
 

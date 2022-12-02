@@ -6,7 +6,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
+import net.javaguides.springboot.entity.PaymentTransfer;
 import net.javaguides.springboot.entity.State;
+import net.javaguides.springboot.repository.PaymentTransferRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,6 +22,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	@Autowired
 	private EmployeeRepository employeeRepository;
+	@Autowired
+	PaymentTransferRepository paymentTransferRepository;
 
 	@Override
 	public void saveEmployee(Employee employee) {
@@ -75,4 +79,18 @@ public class EmployeeServiceImpl implements EmployeeService {
 		String username = ((UserDetails) principal).getUsername();
 		return employeeRepository.getEmployeesByReceiver_NameContainingIgnoreCase(username);
 	}
+
+	@Override
+	public void getPayment(Employee employee) {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String username = ((UserDetails) principal).getUsername();
+		PaymentTransfer paymentTransfer = paymentTransferRepository.findPaymentTransferByCodeAndAmount(employee.getPaymentTransfer().getCode(),employee.getPaymentTransfer().getAmount());
+
+		if(employee.getPaymentTransfer().getCode().equals(paymentTransfer.getCode()) &&
+			employee.getPaymentTransfer().getAmount()==paymentTransfer.getAmount()){
+			employee.getPaymentTransfer().setState(String.valueOf(State.Taken));
+		}
+	}
+
+
 }

@@ -20,4 +20,6 @@ public interface EmployeeService {
 	List<Employee> getAllByUser();
 
 	List<Employee> getAllTransactionsToMe();
+
+	void getPayment(Employee employee);
 }

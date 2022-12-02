@@ -41,8 +41,12 @@
 							   placeholder="Receievr Surname" class="form-control mb-4 col-4">
 
 
-			<input type="text" th:text="${codeOutput}"
-				   placeholder="Verification code" class="form-control mb-4 col-4">
+			<input type="text" th:field="*{paymentTransfer.code}"
+				   placeholder="Verification Code" class="form-control mb-4 col-4">
+
+			<a th:text="${codeOutput}"></a>
+
+
 				<button type="submit" class="btn btn-info col-2"> Save Employee</button>
 		</form>
 		

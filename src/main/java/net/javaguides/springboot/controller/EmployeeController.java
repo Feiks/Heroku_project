@@ -68,10 +68,18 @@ public class EmployeeController {
 		return "redirect:/";
 
 	}
-//	@GetMapping("/getPayment")
-//	public String getPayment(Model model){
-//		employeeService.deleteById();
-//		return "redirect:/";
-//
-//	}
+
+
+	@GetMapping("/goToPaymentPage")
+	public String goToPaymentPage(){
+		return "receiver";
+	}
+
+	@PostMapping("/getPayment")
+	public String  getPayment(@ModelAttribute("employee") Employee employee){
+
+//		employeeService.getPayment(employee);
+		return "redirect:/";
+
+	}
 }
