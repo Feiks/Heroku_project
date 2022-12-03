@@ -2,7 +2,6 @@ package net.javaguides.springboot.entity;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
 @Table(name = "employees")
@@ -98,10 +97,6 @@ public class Employee {
 
 	public void setPaymentTransfer(PaymentTransfer paymentTransfer) {
 		this.paymentTransfer = paymentTransfer;
-	}
-
-	public Receiver getReceiver() {
-		return receiver;
 	}
 
 	public void setReceiver(Receiver receiver) {

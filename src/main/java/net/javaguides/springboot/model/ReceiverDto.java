@@ -2,17 +2,15 @@ package net.javaguides.springboot.model;
 
 import javax.persistence.*;
 
-@Entity
-@Table(name = "receiver")
-public class Receiver {
 
-    @Id
-    @GeneratedValue(strategy =  GenerationType.IDENTITY)
+public class ReceiverDto {
+
+
     private Long id;
     private String name;
     private String surname;
 
-    public Receiver() {
+    public ReceiverDto() {
     }
 
     public Long getId() {

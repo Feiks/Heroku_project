@@ -37,7 +37,7 @@ public class SpringSecurity extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/goToPaymentPage").permitAll()
                 .antMatchers("/getPayment").permitAll()
-                .antMatchers("/","/showNewEmployeeForm","/getPayment","goToPaymentPage","/saveEmployee1","/saveEmployee","/showFormForUpdate/{id}","/deleteEmployee/{id}","/page/{pageNo}","/hm","/adminPanel").hasAnyRole("USER","ADMIN")
+                .antMatchers("/","/showNewEmployeeForm","/getPayment","/saveUpdatedEmployee","/saveEmployee1","/saveEmployee","/showFormForUpdate/{id}","/deleteEmployee/{id}","/page/{pageNo}","/hm","/adminPanel").hasAnyRole("USER","ADMIN")
                 .antMatchers("/**").hasRole("ADMIN")
                 .and().formLogin();
     }

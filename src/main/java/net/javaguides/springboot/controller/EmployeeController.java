@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.Random;
 
 import net.javaguides.springboot.entity.Currency;
+import net.javaguides.springboot.model.EmployeeDto;
 import net.javaguides.springboot.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,8 +27,8 @@ public class EmployeeController {
 	@GetMapping("/showNewEmployeeForm")
 	public String showNewEmployeeForm(Model model) {
 		// create model attribute to bind form data
-		Employee employee = new Employee();
-		model.addAttribute("employee", employee);
+		EmployeeDto employeeDto = new EmployeeDto();
+		model.addAttribute("employee", employeeDto);
 		model.addAttribute("codeOutput", employeeService.getUniqueCode());
 		return "new_employee";
 	}
@@ -36,8 +37,8 @@ public class EmployeeController {
 
 	@GetMapping("/")
 	public String getAllEmployee(Model model) {
-		List<Employee> employeeList = employeeService.getAllTransactionsToMe();
-		List<Employee> myTransaction = employeeService.getAllByUser();
+		List<EmployeeDto> employeeList = employeeService.getAllTransactionsToMe();
+		List<EmployeeDto> myTransaction = employeeService.getAllByUser();
 		model.addAttribute("employeeList", employeeList);
 		model.addAttribute("myTransaction", myTransaction);
 		return "index";
@@ -52,8 +53,8 @@ public class EmployeeController {
 		return "update_employee";
 	}
 	@PostMapping("/saveUpdatedEmployee")
-	public String saveUpdatedEmployee(@ModelAttribute("employee") Employee employee) {
-		employeeService.saveEmployee(employee);
+	public String saveUpdatedEmployee(@ModelAttribute("employee") EmployeeDto employeeDto) {
+		employeeService.saveEmployee(employeeDto);
 		return "redirect:/";
 	}
 
@@ -67,27 +68,25 @@ public class EmployeeController {
 
 	@GetMapping("/goToPaymentPage")
 	public String goToPaymentPage(Model model){
-		Employee employee = new Employee();
-		model.addAttribute("employee", employee);
+		EmployeeDto employeeDto = new EmployeeDto();
+		model.addAttribute("employee", employeeDto);
 		model.addAttribute("codeOutput", employeeService.getUniqueCode());
 		return "receiver";
 	}
 
-	@GetMapping("/getPayment")
-	public String  getPayment(Model model){
-		Employee employee = new Employee();
-		model.addAttribute("employee", employee);
-		model.addAttribute("codeOutput", employeeService.getUniqueCode());
+	@PostMapping("/getPayment")
+	public String  getPayment(Model model, @ModelAttribute("employee") EmployeeDto employeeDto){
 
-//		employeeService.getPayment(employee);
+
+		employeeService.getPayment(employeeDto);
 		return "redirect:/";
 
 	}
 
 	@PostMapping("/saveEmployee")
-	public String saveEmployee(@ModelAttribute("employee") Employee employee) {
+	public String saveEmployee(@ModelAttribute("employee") EmployeeDto employeeDto) {
 		// save employee to database
-		employeeService.saveEmployee(employee);
+		employeeService.saveEmployee(employeeDto);
 		return "redirect:/";
 	}
 }

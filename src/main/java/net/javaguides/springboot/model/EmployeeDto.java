@@ -1,5 +1,8 @@
 package net.javaguides.springboot.model;
 
+import net.javaguides.springboot.entity.PaymentTransfer;
+import net.javaguides.springboot.entity.Receiver;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -24,11 +27,16 @@ public class EmployeeDto {
 
 	private LocalDateTime changedate;
 
-	@ManyToOne(cascade = {CascadeType.ALL})
     PaymentTransfer paymentTransfer;
+	Receiver receiver;
 
-	@OneToOne(cascade = {CascadeType.ALL})
-    Receiver receiver;
+	public Receiver getReceiver() {
+		return receiver;
+	}
+
+	public void setReceiver(Receiver receiver) {
+		this.receiver = receiver;
+	}
 
 	public long getId() {
 		return id;
@@ -92,13 +100,5 @@ public class EmployeeDto {
 
 	public void setPaymentTransfer(PaymentTransfer paymentTransfer) {
 		this.paymentTransfer = paymentTransfer;
-	}
-
-	public Receiver getReceiver() {
-		return receiver;
-	}
-
-	public void setReceiver(Receiver receiver) {
-		this.receiver = receiver;
 	}
 }

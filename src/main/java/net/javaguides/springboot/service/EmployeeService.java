@@ -8,7 +8,7 @@ import net.javaguides.springboot.model.EmployeeDto;
 
 public interface EmployeeService {
 
-	void saveEmployee(Employee employee);
+	void saveEmployee(EmployeeDto employeeDto);
 
 	List<Employee> getAll();
 
@@ -20,7 +20,7 @@ public interface EmployeeService {
 
 	List<EmployeeDto> getAllByUser();
 
-	List<Employee> getAllTransactionsToMe();
+	List<EmployeeDto> getAllTransactionsToMe();
 
-	void getPayment(Employee employee);
+	void getPayment(EmployeeDto employeeDto);
 }

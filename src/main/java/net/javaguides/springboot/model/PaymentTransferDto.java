@@ -1,28 +1,20 @@
 package net.javaguides.springboot.model;
 
 import javax.persistence.*;
-@Entity
-@Table(name = "paymentTransfer")
-public class PaymentTransfer {
+
+public class PaymentTransferDto {
 
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private long id;
 
-    @Column(name = "amount")
     private int amount;
 
-    @Column(name = "currency")
     private String currency;
 
-    @Column(name = "code")
     private String code;
 
-    @Column(name = "state")
     private String state;
-
-
     public long getId() {
         return id;
     }

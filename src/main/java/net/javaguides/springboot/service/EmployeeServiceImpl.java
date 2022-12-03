@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 import net.javaguides.springboot.entity.PaymentTransfer;
 import net.javaguides.springboot.entity.State;
 import net.javaguides.springboot.mapper.EmployeeMapper;
+import net.javaguides.springboot.mapper.EmployeeMapperImpl;
 import net.javaguides.springboot.model.EmployeeDto;
 import net.javaguides.springboot.repository.PaymentTransferRepository;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -33,13 +34,21 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
-	public void saveEmployee(Employee employee) {
+	public void saveEmployee(EmployeeDto employeeDto) {
+		if(employeeDto.getPaymentTransfer().getState()!=null) {
+			if (employeeDto.getPaymentTransfer().getState().equals("TAKEN")) {
+				System.out.println("You can not update , it is already taken");
+				return;
+			}
+		}
 		LocalDateTime now = LocalDateTime.now();
-		employee.setDate(now);
+		employeeDto.setDate(now);
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String username = ((UserDetails) principal).getUsername();
-		employee.setUser(username);
-		employee.getPaymentTransfer().setState(String.valueOf(State.InProcess));
+		employeeDto.setUser(username);
+		employeeDto.getPaymentTransfer().setState(String.valueOf(State.InProcess));
+		EmployeeMapper employeeMapper1 = new EmployeeMapperImpl();
+		Employee employee = employeeMapper1.DtoToEntity(employeeDto);
 		this.employeeRepository.save(employee);
 	}
 
@@ -55,6 +64,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	@Override
 	public void deleteById(long id) {
+
 		employeeRepository.deleteById(id);
 	}
 
@@ -82,22 +92,31 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
-	public List<Employee> getAllTransactionsToMe() {
+	public List<EmployeeDto> getAllTransactionsToMe() {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String username = ((UserDetails) principal).getUsername();
-		return employeeRepository.getEmployeesByReceiver_NameContainingIgnoreCase(username);
+		List<Employee> getEmployeeByReceiverName = employeeRepository.getEmployeesByReceiver_NameContainingIgnoreCase(username);
+		return  getEmployeeByReceiverName.stream().map(employeeMapper::mapToService).collect(Collectors.toList());
 	}
 
 	@Override
-	public void getPayment(Employee employee) {
+	public void getPayment(EmployeeDto employeeDto) {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String username = ((UserDetails) principal).getUsername();
-		PaymentTransfer paymentTransfer = paymentTransferRepository.findPaymentTransferByCodeAndAmount(employee.getPaymentTransfer().getCode(),employee.getPaymentTransfer().getAmount());
+		EmployeeMapper employeeMapper1 = new EmployeeMapperImpl();
+		Employee employee = employeeMapper1.DtoToEntity(employeeDto);
 
+		PaymentTransfer paymentTransfer = paymentTransferRepository.findPaymentTransferByCodeAndAmount(employee.getPaymentTransfer().getCode(),employee.getPaymentTransfer().getAmount());
 		if(employee.getPaymentTransfer().getCode().equals(paymentTransfer.getCode()) &&
 			employee.getPaymentTransfer().getAmount()==paymentTransfer.getAmount()){
 			employee.getPaymentTransfer().setState(String.valueOf(State.Taken));
+			employeeRepository.save(employee);
+
 		}
+	}
+
+	private void saveEmployee(Employee employee) {
+		employeeRepository.save(employee);
 	}
 
 
