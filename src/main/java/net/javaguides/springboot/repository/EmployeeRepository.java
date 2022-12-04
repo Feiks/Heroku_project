@@ -14,12 +14,15 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long>{
    @Query(value = "Select * from employees", nativeQuery = true)
     List<Employee> getAll();
 
-    @Query(value = "UPDATE Customers SET ContactName = 'Alfred Schmidt', City= 'Frankfurt' WHERE CustomerID = 1;", nativeQuery = true)
-    void updateEmployee(Employee updatedEmployee);
+    @Query(value = "UPDATE payment_transfer SET state = 'TAKEN' WHERE code = ?;", nativeQuery = true)
+    void updatePaymentTransferState(String code);
 
     List<Employee> getEmployeesByUser(String username);
 
     List<Employee> getEmployeesByReceiver_NameContainingIgnoreCase(String username);
+
+    @Query(value = "SELECT SUM(amount) FROM payment_transfer WHERE  state = 'TAKEN' ",nativeQuery = true)
+ int PaymentCalculation();
 //    @Query
 //            (value = "Select receiver from greeting where receiver = ?", nativeQuery = true)
 //    public long yeha(Long id);

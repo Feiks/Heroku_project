@@ -18,12 +18,16 @@
         <input required type="text" th:field="*{firstName}"
                placeholder="Employee First Name" class="form-control mb-4 col-4">
 
-        <input type="text"
-               placeholder="Receievr Surname" class="form-control mb-4 col-4">
+        <input required type="text" th:field="*{lastName}"
+               placeholder="Employee LastName" class="form-control mb-4 col-4">
+
+        <input required type="text" th:field="*{paymentTransfer.amount}"
+               placeholder="Amount" class="form-control mb-4 col-4">
+
+        <input required type="text" th:field="*{paymentTransfer.code}"
+               placeholder="Verification Code" class="form-control mb-4 col-4">
 
 
-        <input type="text"
-               placeholder="Verification Code" class="form-control mb-4 col-4">-->
 
 
         <button type="submit" class="btn btn-info col-2"> Get Payment</button>

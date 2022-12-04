@@ -23,4 +23,6 @@ public interface EmployeeService {
 	List<EmployeeDto> getAllTransactionsToMe();
 
 	void getPayment(EmployeeDto employeeDto);
+
+	int PaymentCalculation();
 }

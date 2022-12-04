@@ -39,7 +39,9 @@ public class EmployeeController {
 	public String getAllEmployee(Model model) {
 		List<EmployeeDto> employeeList = employeeService.getAllTransactionsToMe();
 		List<EmployeeDto> myTransaction = employeeService.getAllByUser();
+		int sum = employeeService.PaymentCalculation();
 		model.addAttribute("employeeList", employeeList);
+		model.addAttribute("sum", sum);
 		model.addAttribute("myTransaction", myTransaction);
 		return "index";
 	}

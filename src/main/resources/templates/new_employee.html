@@ -27,12 +27,12 @@
 			<input type="text" th:field="*{paymentTransfer.amount}"
 				   placeholder="Amount" class="form-control mb-4 col-4">
 
-			<select>
+			<select  class="form-control mb-4 col-4"  th:field="*{paymentTransfer.currency}">
 				<option th:each="state : ${T(net.javaguides.springboot.entity.Currency).values()}"
-						th:value="${state}"
-						th:text="${state}">
+						th:value="${state}"  th:text="${state}">
 				</option>
 			</select>
+
 
 			<input type="text" th:field="*{receiver.name}"
 				   placeholder="Receiver Name" class="form-control mb-4 col-4">

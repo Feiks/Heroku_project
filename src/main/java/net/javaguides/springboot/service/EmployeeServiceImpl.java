@@ -107,12 +107,29 @@ public class EmployeeServiceImpl implements EmployeeService {
 		Employee employee = employeeMapper1.DtoToEntity(employeeDto);
 
 		PaymentTransfer paymentTransfer = paymentTransferRepository.findPaymentTransferByCodeAndAmount(employee.getPaymentTransfer().getCode(),employee.getPaymentTransfer().getAmount());
+		if(paymentTransfer==null){
+			System.out.println("NOT FOUND");
+			return;
+		}
 		if(employee.getPaymentTransfer().getCode().equals(paymentTransfer.getCode()) &&
 			employee.getPaymentTransfer().getAmount()==paymentTransfer.getAmount()){
 			employee.getPaymentTransfer().setState(String.valueOf(State.Taken));
-			employeeRepository.save(employee);
-
+			String code = employee.getPaymentTransfer().getCode();
+			try {
+				employeeRepository.updatePaymentTransferState(code);
+			}
+			catch (Exception e){
+				System.out.println(e);
+			}
 		}
+	}
+
+	@Override
+	public int PaymentCalculation() {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String username = ((UserDetails) principal).getUsername();
+		int sum = employeeRepository.PaymentCalculation();
+		return sum;
 	}
 
 	private void saveEmployee(Employee employee) {
