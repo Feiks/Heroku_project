@@ -1,6 +1,5 @@
 package net.javaguides.springboot.security;
 
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -37,7 +36,7 @@ public class SpringSecurity extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/goToPaymentPage").permitAll()
                 .antMatchers("/getPayment").permitAll()
-                .antMatchers("/","/showNewEmployeeForm","/getPayment","/saveUpdatedEmployee","/saveEmployee1","/saveEmployee","/showFormForUpdate/{id}","/deleteEmployee/{id}","/page/{pageNo}","/hm","/adminPanel").hasAnyRole("USER","ADMIN")
+                .antMatchers("/","/showNewEmployeeForm","/getPayment","/saveUpdatedEmployee","/saveEmployee1","/saveEmployee","/showFormForUpdate/{id}","/deleteEmployee/{id}","/page/{pageNo}").hasAnyRole("USER","ADMIN")
                 .antMatchers("/**").hasRole("ADMIN")
                 .and().formLogin();
     }

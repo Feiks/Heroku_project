@@ -25,4 +25,6 @@ public interface EmployeeService {
 	void getPayment(EmployeeDto employeeDto);
 
 	int PaymentCalculation();
+
+	void updatePayment(EmployeeDto employeeDto);
 }

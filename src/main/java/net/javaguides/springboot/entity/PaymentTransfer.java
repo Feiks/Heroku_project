@@ -21,7 +21,7 @@ public class PaymentTransfer {
 
     @Column(name = "state")
     private String state;
-
+    //добавить
 
     public long getId() {
         return id;

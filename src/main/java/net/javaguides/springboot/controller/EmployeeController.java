@@ -56,7 +56,7 @@ public class EmployeeController {
 	}
 	@PostMapping("/saveUpdatedEmployee")
 	public String saveUpdatedEmployee(@ModelAttribute("employee") EmployeeDto employeeDto) {
-		employeeService.saveEmployee(employeeDto);
+		employeeService.updatePayment(employeeDto);
 		return "redirect:/";
 	}
 

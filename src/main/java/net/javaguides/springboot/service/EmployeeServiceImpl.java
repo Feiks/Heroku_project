@@ -2,11 +2,13 @@ package net.javaguides.springboot.service;
 
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 import java.util.stream.Collectors;
 
+import net.javaguides.springboot.entity.Currency;
 import net.javaguides.springboot.entity.PaymentTransfer;
 import net.javaguides.springboot.entity.State;
 import net.javaguides.springboot.mapper.EmployeeMapper;
@@ -32,6 +34,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 		this.paymentTransferRepository = paymentTransferRepository;
 		this.employeeMapper = employeeMapper;
 	}
+	List<Currency> currenciesEnum = List.of(Currency.EURO,Currency.KGS,Currency.USD);
 
 	@Override
 	public void saveEmployee(EmployeeDto employeeDto) {
@@ -64,8 +67,14 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	@Override
 	public void deleteById(long id) {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String username = ((UserDetails) principal).getUsername();
+		Optional<Employee> employee = employeeRepository.findById(id);
 
-		employeeRepository.deleteById(id);
+		if(employee.get().getUser().equals(username)){
+			employeeRepository.deleteById(id);
+		}
+		else return;
 	}
 
 	@Override
@@ -103,8 +112,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 	public void getPayment(EmployeeDto employeeDto) {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String username = ((UserDetails) principal).getUsername();
-		EmployeeMapper employeeMapper1 = new EmployeeMapperImpl();
-		Employee employee = employeeMapper1.DtoToEntity(employeeDto);
+		EmployeeMapper employeeMapper = new EmployeeMapperImpl();
+		Employee employee = employeeMapper.DtoToEntity(employeeDto);
 
 		PaymentTransfer paymentTransfer = paymentTransferRepository.findPaymentTransferByCodeAndAmount(employee.getPaymentTransfer().getCode(),employee.getPaymentTransfer().getAmount());
 		if(paymentTransfer==null){
@@ -130,6 +139,25 @@ public class EmployeeServiceImpl implements EmployeeService {
 		String username = ((UserDetails) principal).getUsername();
 		int sum = employeeRepository.PaymentCalculation();
 		return sum;
+	}
+
+	@Override
+	public void updatePayment(EmployeeDto employeeDto) {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String username = ((UserDetails) principal).getUsername();
+		if(employeeDto.getUser().toLowerCase().equals(username.toLowerCase())) {
+			Employee employee = new Employee();
+			employee = employeeMapper.DtoToEntity(employeeDto);
+			String name = employee.getFirstName();
+			String lastName = employee.getLastName();
+			int amount = employee.getPaymentTransfer().getAmount(); //убрать
+			try {
+				employeeRepository.updatePayment(employee.getFirstName(), employee.getLastName(), employee.getId());
+				paymentTransferRepository.updatePayment(employee.getPaymentTransfer().getAmount(), employee.getPaymentTransfer().getCode());
+			} catch (Exception e) {
+				System.out.println(e);
+			}
+		}
 	}
 
 	private void saveEmployee(Employee employee) {

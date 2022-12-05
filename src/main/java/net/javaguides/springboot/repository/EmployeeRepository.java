@@ -1,6 +1,5 @@
 package net.javaguides.springboot.repository;
 
-import net.javaguides.springboot.model.EmployeeDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -23,6 +22,10 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long>{
 
     @Query(value = "SELECT SUM(amount) FROM payment_transfer WHERE  state = 'TAKEN' ",nativeQuery = true)
  int PaymentCalculation();
+
+
+ @Query(value = "UPDATE employees set first_name = ?, last_name = ? WHERE  id = ? ",nativeQuery = true)
+ void updatePayment(String firstName, String lastName, long id);
 //    @Query
 //            (value = "Select receiver from greeting where receiver = ?", nativeQuery = true)
 //    public long yeha(Long id);

@@ -99,6 +99,10 @@ public class Employee {
 		this.paymentTransfer = paymentTransfer;
 	}
 
+	public Receiver getReceiver() {
+		return receiver;
+	}
+
 	public void setReceiver(Receiver receiver) {
 		this.receiver = receiver;
 	}

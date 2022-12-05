@@ -18,7 +18,15 @@
 			
 			<!-- Add hidden form field to handle update -->
 			<input type="hidden" th:field="*{id}" />
-			
+
+			<input type="hidden" th:field="*{receiver.name}"/>
+
+			<input type="hidden" th:field="*{receiver.surname}"/>
+			<input type="hidden" th:field="*{user}"/>
+
+
+			<input type="hidden" th:field="*{paymentTransfer.code}"/>
+
 			<input type="text" th:field="*{firstName}" class="form-control mb-4 col-4">
 				
 				<input type="text" th:field="*{lastName}" class="form-control mb-4 col-4">

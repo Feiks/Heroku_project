@@ -4,8 +4,6 @@ import javax.persistence.*;
 
 
 public class ReceiverDto {
-
-
     private Long id;
     private String name;
     private String surname;

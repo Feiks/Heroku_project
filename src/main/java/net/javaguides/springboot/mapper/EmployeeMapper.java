@@ -12,7 +12,7 @@ import java.awt.*;
 
 @Mapper(componentModel = "spring")
 public interface EmployeeMapper {
-    EmployeeDto mapToService(Employee employee);
+    EmployeeDto mapToService(Employee employee);//EntityToDTO
     Employee DtoToEntity(EmployeeDto employeeDto);
 
 }
