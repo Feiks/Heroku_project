@@ -37,16 +37,17 @@
 			</thead>
 			<tbody>
 			<tr>
-				<td th:text="${sum}"></td>
-				<td th:text="${sum}"></td>
-				<td th:text="${sum}"></td>
+				<td th:text="${sumOfUSD}"></td>
+				<td th:text="${sumOfKGS}"></td>
+				<td th:text="${sumOfEUR}"></td>
 			</tr>
 			</tbody>
 		</table>
-		<form th:action="@{/hm}" class = "table table-striped table-responsive-md">
+		<form th:action="@{/search}" class = "table table-striped table-responsive-md">
 			Filter: <input type="text" name="keyword" id="keyword" size="50" th:value="${keyword}" placeholder="Enter the code of the payment" />
 			&nbsp;
 			<input type="submit" value="Search" />
+			<a th:text="${foundPayment}"></a>
 			&nbsp;
 			<input type="button" value="Clear" id="btnClear" onclick="clearSearch()" />
 		</form>

@@ -4,16 +4,17 @@ import net.javaguides.springboot.entity.PaymentTransfer;
 import net.javaguides.springboot.entity.Receiver;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 public class EmployeeDto {
 	
 
 	private long id;
-
-
+	@NotNull
 	private String firstName;
-
+	@NotBlank
 	private String lastName;
 
 

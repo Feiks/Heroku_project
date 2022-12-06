@@ -8,23 +8,29 @@ import net.javaguides.springboot.model.EmployeeDto;
 
 public interface EmployeeService {
 
-	void saveEmployee(EmployeeDto employeeDto);
+    void saveEmployee(EmployeeDto employeeDto);
 
-	List<Employee> getAll();
+    List<Employee> getAll();
 
-	Optional<Employee> getEmployeeById(long id);
+    Optional<Employee> getEmployeeById(long id);
 
     void deleteById(long id);
 
-	String getUniqueCode();
+    String getUniqueCode();
 
-	List<EmployeeDto> getAllByUser();
+    List<EmployeeDto> getAllByUser();
 
-	List<EmployeeDto> getAllTransactionsToMe();
+    List<EmployeeDto> getAllTransactionsToMe();
 
-	void getPayment(EmployeeDto employeeDto);
+    void getPayment(EmployeeDto employeeDto);
 
-	int PaymentCalculation();
+    int PaymentCalculationofUSD();
 
-	void updatePayment(EmployeeDto employeeDto);
+    void updatePayment(EmployeeDto employeeDto);
+
+    int PaymentCalculationofEUR();
+
+    int PaymentCalculationofKGS();
+
+    EmployeeDto findPaymentByKeyWord(String keyword);
 }
